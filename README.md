@@ -66,29 +66,24 @@ Escenario 4: Ingreso de eventos
 
 ## Definir métodos de integración y de exposición de datos
 
-El siguiente diagrama ilustra la propuesta para el despliegue de infraestructura y el despliegues continuo de las palicaciones
+Para exponer los datos utilizaremos api de tipo rest, y las respuestas estaran en json. Si es necesario enviar la información a un sistema externo se sugiere el uso de Apis y/o Colas. 
 
-![](img/devops.png)
-
-- Github: Representa el versionador de codigo fuente(puede ser cualquiera basado en git).
-- Terraform: Para la construccion de la infraestructura como codigo, de igual manera usara un bucket de s3 para el manejo del estado de la infraestructura.
-- Pipeline: se requieren pipeline para desplegar tanto la infraestructura asi como para desplegar en EKS, Lambda y/o s3.
+Los datos tambien se expondran en una web la cual solo se podra acceder por https y debidamente autenticados.
 
 
-## Arquitectura de referencia
+## Atributos de calidad
 El siguiente diagrama ilustra la arquitectura de referencia propuestas, sugiere los servicios a usar y la forma como deberian interactuar, se intenctan usar la mayor parte de la arquitectura con servicios serverless.
 
-![](img/arquitectura-de-referencia.png)
 
-- FrontEnd: Se sugiere desplegarla con s3, tambien se podria utilizar amplify para desplegarlo, en este caso sugerimos un bucket para sitios web estaticos, con el objetivo de usar un servicio serverless y de igual manera en el punto anterior se presento una propuesta de despliegue continuo por tal motivo obviamos amplify, adicionalmente se usara cloudfront para entregar el contenido de la app web.
-- Apigateway: Se utilizara para entregar las api de los servicios expuestos ya sea por EKS, lambda, un servicio que aun no se migre del monolito, de igual manera se utilizara la funcion de autorizador para utilizar la autenticacion existente.
-- Microservicios: Se orquestaran en kubernetes y adicionalmente los exporadicos se sugiere convertirlos en aws lambdas.
-- Eventos: El diagrama muestra los tipos de eventos sugeridos eventbrigde y SNS.
-- Cloudwacth: aqui manejaremos los logs.
-- Almacenamiento: aqui observamos los 4 tipos de almacenamiento que seran usados dependiendo del caso de uso.
-- Seguridad: Se usuara kms para guardar certificados de seguridad, secret manager para los secretos y waf para la seguridad perimetral.
+## Patrones, estilos y tacticas a usar.
 
+- FrontEnd: Utilizaremos microfrontEnd que utilicen arquitectura hexagonal, para minimizar el impacto del uso del framework web que se escoja.
 
+- Microservicios: Desde la arquitectura de AWS, se observa que tenemos una arquitectura orientada a microservicios, que planea utilizar para la observabilidad a cloudwatch, tambien como se usa EKS se hace necesario usar healtcheck, tambien utilizaremos el patron apigateway para descubir los servicios, de igual manera la arquitectura queda preparada para el uso de eventos.
+
+Tambien utilizaremos database per services, y es un sistema poliglota a nivel de persistencia, y por ultimo cabe resaltar que se utilizara arquitectura hexagonal para crear los microservicios.
+
+- Se sugiere hacer un desarrollo orientado a pruebas para asegurar la calidad del mismo y seguir el marco de OWASP para el desarrollo de la web y los servicios.
 
 ## Conclusiones
 
