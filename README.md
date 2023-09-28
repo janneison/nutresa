@@ -1,3 +1,5 @@
+# <a href="https://github.com/janneison">JANNEISON GERMAN GALINDO RIVERA</a>
+
 # Caso  práctico Arquitecto de Solución
 En esta documentacion se resuelve la prueba tecnica para el cargo de arquitecto de solución.
 
@@ -72,8 +74,8 @@ Los datos tambien se expondran en una web la cual solo se podra acceder por http
 
 
 ## Atributos de calidad
-El siguiente diagrama ilustra la arquitectura de referencia propuestas, sugiere los servicios a usar y la forma como deberian interactuar, se intenctan usar la mayor parte de la arquitectura con servicios serverless.
 
+![](img/atributos.png)
 
 ## Patrones, estilos y tacticas a usar.
 
@@ -81,16 +83,12 @@ El siguiente diagrama ilustra la arquitectura de referencia propuestas, sugiere 
 
 - Microservicios: Desde la arquitectura de AWS, se observa que tenemos una arquitectura orientada a microservicios, que planea utilizar para la observabilidad a cloudwatch, tambien como se usa EKS se hace necesario usar healtcheck, tambien utilizaremos el patron apigateway para descubir los servicios, de igual manera la arquitectura queda preparada para el uso de eventos.
 
-Tambien utilizaremos database per services, y es un sistema poliglota a nivel de persistencia, y por ultimo cabe resaltar que se utilizara arquitectura hexagonal para crear los microservicios.
+- Tambien utilizaremos database per services, y es un sistema poliglota a nivel de persistencia, y por ultimo cabe resaltar que se utilizara arquitectura hexagonal para crear los microservicios.
 
 - Se sugiere hacer un desarrollo orientado a pruebas para asegurar la calidad del mismo y seguir el marco de OWASP para el desarrollo de la web y los servicios.
 
 ## Conclusiones
 
-El diagrama y la arquitectura se debe complementar al revisar el sistema actual y el roadmap de mejoras.
-
-Al momento de migrar se puede utilizar aws database migrations, de igual manera se puede conseguir un mecanismo de change data capture para en caso de tener una estrategia que libere entregas de valor parciales y no se realice un bigbang y apoyarse en apigateway para que convivan por algun tiempo ambos sistemas.
-
-Por ultimo es importante analizar si ya se tienen otras cuentas en AWS y/o si algun sistema al que se conecte la aplicacion tiene alguna restriccion lo cual nos obligaria a usar manejo especial en las redes.
+Podemos observar un sistema que puede ser reutilizable para la creacion de cualquier tipo de eventos, seguramente la arquitectura  de solución y de software deba profundizarse y evolucionarse a medida que  se creen las historias de usuario y se definan todos los escenarios.
 
 
